@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>SMS</title>
+        <title>SMS client</title>
       </head>
       <body className="bg-gray-200 w-screen">
         <ReduxProvider>
