@@ -5,6 +5,8 @@ import {
   Card,
   IconButton,
   Input,
+  Option,
+  Select,
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
@@ -20,26 +22,26 @@ export default function SendingSMS() {
   const [sender, setSender] = useState("");
   const [phoneList, setPhoneList] = useState("");
   const [smsContent, setSmsContent] = useState("");
-  const [contentListData, setContentListData] = useState([]);
   const [alertMessage, setAlertMessage] = useState("");
+  const [networkIndex, setNetworkIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const fetchData = async () => {
+    const response = await getUser();
+    if (response.status === 401) {
+      dispatch(logout());
+      router.push("/login");
+      return;
+    }
+    if (response.status === 200) {
+      return;
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getUser();
-      if (response.status === 401) {
-        dispatch(logout());
-        router.push("/login");
-        return;
-      }
-      if (response.status === 200) {
-        return;
-      }
-      showMessage(response.data);
-    };
     fetchData();
   }, []);
 
@@ -47,6 +49,7 @@ export default function SendingSMS() {
     setAlertMessage(msg);
     setTimeout(() => setAlertMessage(""), 2000);
   };
+
   const handleSendSMS = async () => {
     let checkValid = validationSendSMS(phoneList, smsContent, sender);
     if (!checkValid.result) {
@@ -66,7 +69,8 @@ export default function SendingSMS() {
       const result = await sendSMS(
         sender,
         phoneList.split(/\r?\n/),
-        smsContent
+        smsContent,
+        networkIndex
       );
       if (result.status === 401) {
         dispatch(logout());
@@ -76,13 +80,14 @@ export default function SendingSMS() {
         setSender("");
         setPhoneList("");
         setSmsContent("");
-        showMessage("已发送成功！")
+        showMessage("已发送成功！");
       }
       // showMessage(result.data.message);
     } catch (error) {
       showMessage("服务器发生意外错误");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleLoadFile = () => {
@@ -104,21 +109,32 @@ export default function SendingSMS() {
     <div>
       <div className="h-full py-10 justify-center items-center flex">
         <CustomAlert message={alertMessage} />
-
         <Card
           color="transparent"
           shadow={false}
-          className="w-[500px] flex items-start gap-2"
+          className="w-[700px] flex flex-col gap-8 items-start gap-2"
         >
           <Typography variant="h4" color="blue-gray/10">
             发送短信
           </Typography>
-          <div>
+          <div className="w-full">
+            <Typography variant="h6" color="blue-gray/10" className="self-end">
+              选择网络
+            </Typography>
+            <Select onChange={(e) => setNetworkIndex(e)}>
+              <Option value={0}>网络1(香港)</Option>
+              <Option value={1}>网络2(澳门)</Option>
+              <Option value={2}>网络3(香港, 澳门)</Option>
+            </Select>
+          </div>
+          <div className="w-full">
+            <Typography variant="h6" color="blue-gray/10" className="self-end">
+              发件人 ID
+            </Typography>
             <Input
-              label="发件人 ID"
               value={sender}
               onChange={(e) => setSender(e.target.value)}
-              className="bg-white"
+              className="bg-white w-full"
             />
           </div>
           <div className="w-full flex flex-col items-end gap-1">
