@@ -13,6 +13,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -27,13 +28,20 @@ export default function Login() {
       showMessage(checkValid.message);
       return;
     }
-    let result = await signin(username, password);
-    showMessage(result.message);
-    if (result.success) {
-      let token = result.token;
-      let user = result.user;
-      dispatch(login({ token, user }));
-      window.location.reload();
+    try {
+      setIsLoading(true);
+      let result = await signin(username, password);
+      showMessage(result.message);
+      if (result.success) {
+        let token = result.token;
+        let user = result.user;
+        dispatch(login({ token, user }));
+        router.push("/main");
+      }
+    } catch (error) {
+      console.log("ERROR", error);
+    } finally {
+      setIsLoading(false);
     }
   };
   const { isAuth } = useSelector((state) => state.auth);
@@ -82,7 +90,12 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <Button onClick={handleSignin} className="mt-6" fullWidth>
+                <Button
+                  loading={isLoading}
+                  onClick={handleSignin}
+                  className="mt-6 flex items-center justify-center"
+                  fullWidth
+                >
                   登陆
                 </Button>
               </form>
