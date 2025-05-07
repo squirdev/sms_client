@@ -91,7 +91,9 @@ export default function Login() {
                   />
                 </div>
                 <Button
+                  type="submit"
                   loading={isLoading}
+                  onSubmit={handleSignin}
                   onClick={handleSignin}
                   className="mt-6 flex items-center justify-center"
                   fullWidth

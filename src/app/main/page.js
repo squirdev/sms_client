@@ -23,7 +23,7 @@ export default function SendingSMS() {
   const [phoneList, setPhoneList] = useState("");
   const [smsContent, setSmsContent] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
-  const [networkIndex, setNetworkIndex] = useState(2);
+  const [networkIndex, setNetworkIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
   const router = useRouter();
@@ -124,20 +124,24 @@ export default function SendingSMS() {
             <Select onChange={(e) => setNetworkIndex(e)}>
               <Option value={0}>网络1(香港)</Option>
               <Option value={1}>网络2(澳门)</Option>
-              <Option value={2} className="font-bold">
+              {/* <Option value={2} className="font-bold">
                 网络3(香港, 澳门)___推荐
-              </Option>
+              </Option> */}
             </Select>
           </div>
           <div className="w-full">
             <Typography variant="h6" color="blue-gray/10" className="self-end">
               发件人 ID
             </Typography>
-            <Input
+            <Select value={sender} onChange={(e) => setSender(e)}>
+              <Option value={"Telegram"}>Telegram</Option>
+              <Option value={"WhatsApp"}>WhatsApp</Option>
+            </Select>
+            {/* <Input
               value={sender}
               onChange={(e) => setSender(e.target.value)}
               className="bg-white w-full"
-            />
+            /> */}
           </div>
           <div className="w-full flex flex-col items-end gap-1">
             <div className="w-full flex justify-between">
