@@ -123,7 +123,7 @@ export default function SendingSMS() {
             </Typography>
             <Select onChange={(e) => setNetworkIndex(e)}>
               <Option value={0}>网络1(香港)</Option>
-              <Option value={1}>网络2(澳门)</Option>
+              <Option value={1}>网络2(澳门，日本)</Option>
               {/* <Option value={2} className="font-bold">
                 网络3(香港, 澳门)___推荐
               </Option> */}
