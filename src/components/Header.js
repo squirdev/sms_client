@@ -49,7 +49,7 @@ const Header = () => {
         <div className="p-2 flex justify-center items-center w-screen">
           <Card className="flex flex-row gap-4 justify-center items-center shadow-lg px-5 py-2">
             <Link href="/">
-              <img src="/logo.png" className="w-[250px]" />
+              <img src="/logo.png" className="w-[250px] h-[120px]" />
             </Link>
             <ButtonGroup variant="text">
               <Button

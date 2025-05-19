@@ -117,26 +117,20 @@ export default function SendingSMS() {
           <Typography variant="h4" color="blue-gray/10">
             发送短信
           </Typography>
-          <div className="w-full">
+          {/* <div className="w-full">
             <Typography variant="h6" color="blue-gray/10" className="self-end">
               选择网络
             </Typography>
             <Select onChange={(e) => setNetworkIndex(e)}>
               <Option value={0}>网络1(香港)</Option>
               <Option value={1}>网络2(澳门，日本)</Option>
-              {/* <Option value={2} className="font-bold">
-                网络3(香港, 澳门)___推荐
-              </Option> */}
             </Select>
-          </div>
+          </div> */}
           <div className="w-full">
             <Typography variant="h6" color="blue-gray/10" className="self-end">
               发件人 ID
             </Typography>
-            <Select value={sender} onChange={(e) => setSender(e)}>
-              <Option value={"Telegram"}>Telegram</Option>
-              <Option value={"WhatsApp"}>WhatsApp</Option>
-            </Select>
+            <Input value={sender} onChange={(e) => setSender(e.target.value)} />
             {/* <Input
               value={sender}
               onChange={(e) => setSender(e.target.value)}
