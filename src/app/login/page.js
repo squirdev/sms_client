@@ -53,13 +53,13 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="flex flex-row bg-[url('/bg.jpg')] bg-cover bg-center h-screen ml-0">
-      <div className="w-[60%] flex items-center justify-center ">
+    <div className="flex flex-row w-full bg-gray-600 bg-cover bg-center h-screen ml-0">
+      <div className="w-1/2 h-full bg-amber-600 flex items-center justify-center ">
         <img src="/gold_logo.png" className="w-full" />
       </div>
-      <div className="content  w-[30%]">
+      <div className="content w-1/2">
         <CustomAlert message={alertMessage} />
-        <div className="h-screen flex items-center justify-start">
+        <div className="h-screen flex items-center justify-center">
           <Card
             shadow={false}
             color="transparent"
@@ -71,7 +71,7 @@ export default function Login() {
                   登陆
                 </Typography>
               </div>
-              <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+              <form className="mt-8 w-80 max-w-screen-lg sm:w-96">
                 <div className="mb-1 flex flex-col gap-6">
                   <Input
                     size="lg"
