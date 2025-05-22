@@ -60,7 +60,7 @@ export default function SendingSMS() {
       showMessage("电话号码列表超过10000行，请分批发送。");
       return;
     }
-    if (smsContent.length > 70) {
+    if (smsContent.length > 140) {
       showMessage("短信内容长度必须小于70个字符");
       return;
     }
@@ -179,7 +179,7 @@ export default function SendingSMS() {
             value={smsContent}
             onChange={(e) => setSmsContent(e.target.value)}
             placeholder="内容长度不能超过70。"
-            maxLength={70}
+            maxLength={140}
             className="w-full h-auto overflow-auto outline-none border border-gray-500 rounded-md p-3 resize-none"
           />
           <div className="flex justify-end w-full">

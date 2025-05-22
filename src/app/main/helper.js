@@ -17,7 +17,7 @@ export const validationSendSMS = (phoneList, smsContent, sender) => {
       result: false,
       message: "请输入所有信息。",
     };
-  } else if (smsContent.length > 70) {
+  } else if (smsContent.length > 140) {
     return {
       result: false,
       message: "短信内容长度必须小于70。",
