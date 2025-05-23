@@ -5,8 +5,6 @@ import {
   Card,
   IconButton,
   Input,
-  Option,
-  Select,
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
@@ -58,10 +56,6 @@ export default function SendingSMS() {
     }
     if (phoneList.split(/\r?\n/).length > 10000) {
       showMessage("电话号码列表超过10000行，请分批发送。");
-      return;
-    }
-    if (smsContent.length > 140) {
-      showMessage("短信内容长度必须小于70个字符");
       return;
     }
     try {
@@ -117,25 +111,11 @@ export default function SendingSMS() {
           <Typography variant="h4" color="blue-gray/10">
             发送短信
           </Typography>
-          {/* <div className="w-full">
-            <Typography variant="h6" color="blue-gray/10" className="self-end">
-              选择网络
-            </Typography>
-            <Select onChange={(e) => setNetworkIndex(e)}>
-              <Option value={0}>网络1(香港)</Option>
-              <Option value={1}>网络2(澳门，日本)</Option>
-            </Select>
-          </div> */}
           <div className="w-full">
             <Typography variant="h6" color="blue-gray/10" className="self-end">
               发件人 ID
             </Typography>
             <Input value={sender} onChange={(e) => setSender(e.target.value)} />
-            {/* <Input
-              value={sender}
-              onChange={(e) => setSender(e.target.value)}
-              className="bg-white w-full"
-            /> */}
           </div>
           <div className="w-full flex flex-col items-end gap-1">
             <div className="w-full flex justify-between">
