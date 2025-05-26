@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
 import CustomAlert from "../components/customAlert";
-import { validationSendSMS } from "./helper";
+import { detectLanguage, validationSendSMS } from "./helper";
 import { sendSMS } from "../api/sms";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -42,6 +42,10 @@ export default function SendingSMS() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("Language", detectLanguage(smsContent) == "CH");
+  }, [smsContent]);
 
   const showMessage = (msg) => {
     setAlertMessage(msg);

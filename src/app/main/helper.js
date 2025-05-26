@@ -11,7 +11,7 @@ export const validationSignIn = (username, password) => {
     };
 };
 
-function detectLanguage(text) {
+export function detectLanguage(text) {
   if (/[\u4e00-\u9fff]/.test(text)) {
     return "CH";
   } else if (/[a-zA-Z]/.test(text)) {
