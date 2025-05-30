@@ -8,12 +8,15 @@ import CustomAlert from "../components/customAlert";
 import { signin } from "../api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../redux/authSlice";
+import Image from "next/image";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -55,8 +58,10 @@ export default function Login() {
 
   return (
     <div className="flex flex-row w-full bg-cover bg-center h-screen ml-0">
-      <div className="w-1/2 h-full bg-amber-600 flex items-center justify-center ">
-        <img src="/gold_logo.png" className="w-full" />
+      <div className="w-1/2 h-full relative bg-[url('/bg.jpg')] bg-bottom bg-no-repeat bg-cover">
+        <div className="absolute top-0 left-0">
+          <Image src="/logo.png" width={320} height={80} alt="logo" />
+        </div>
       </div>
       <div className="content w-1/2">
         <CustomAlert message={alertMessage} />
@@ -80,14 +85,21 @@ export default function Login() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-
-                  <Input
-                    type="password"
-                    size="lg"
-                    label="密码"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <div className="relative flex items-center justify-end">
+                    <Input
+                      type={isPasswordShow ? "text" : "password"}
+                      size="lg"
+                      label="密码"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div
+                      className="absolute mr-4 cursor-pointer"
+                      onClick={(e) => setIsPasswordShow(!isPasswordShow)}
+                    >
+                      {isPasswordShow ? <BsEyeSlash /> : <BsEye />}
+                    </div>
+                  </div>
                 </div>
                 <Button
                   type="submit"

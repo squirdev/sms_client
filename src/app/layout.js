@@ -30,8 +30,10 @@ export default function RootLayout({ children }) {
   }, [router]);
 
   return (
-    <html lang="en">
+    <html lang="en" translate="no" className="notranslate">
       <head>
+        <meta name="googlebot" content="notranslate" />
+        <meta name="google" content="notranslate" />
         <title>SMS client</title>
       </head>
       <body className="bg-gray-200 w-screen">
