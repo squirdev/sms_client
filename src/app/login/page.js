@@ -22,7 +22,8 @@ export default function Login() {
     setTimeout(() => setAlertMessage(""), 2000);
   };
 
-  const handleSignin = async () => {
+  const handleSignin = async (e) => {
+    e.preventDefault();
     let checkValid = validationSignIn(username, password);
     if (!checkValid.result) {
       showMessage(checkValid.message);
@@ -53,7 +54,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="flex flex-row w-full bg-gray-600 bg-cover bg-center h-screen ml-0">
+    <div className="flex flex-row w-full bg-cover bg-center h-screen ml-0">
       <div className="w-1/2 h-full bg-amber-600 flex items-center justify-center ">
         <img src="/gold_logo.png" className="w-full" />
       </div>
@@ -65,9 +66,9 @@ export default function Login() {
             color="transparent"
             className="p-4 text-gray-500"
           >
-            <div>
+            <div className="text-gray-900">
               <div className="flex items-self-center justify-self-center">
-                <Typography className="font-medium items-self-center text-4xl">
+                <Typography className="font-medium items-self-center text-2xl">
                   登陆
                 </Typography>
               </div>
@@ -76,7 +77,6 @@ export default function Login() {
                   <Input
                     size="lg"
                     label="用户名"
-                    color="white"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
@@ -85,7 +85,6 @@ export default function Login() {
                     type="password"
                     size="lg"
                     label="密码"
-                    color="white"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -93,8 +92,8 @@ export default function Login() {
                 <Button
                   type="submit"
                   loading={isLoading}
-                  onSubmit={handleSignin}
                   onClick={handleSignin}
+                  color="green"
                   className="mt-6 flex items-center justify-center"
                   fullWidth
                 >
