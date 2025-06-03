@@ -43,10 +43,6 @@ export default function SendingSMS() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("Language", detectLanguage(smsContent) == "CH");
-  }, [smsContent]);
-
   const showMessage = (msg) => {
     setAlertMessage(msg);
     setTimeout(() => setAlertMessage(""), 2000);
@@ -74,11 +70,15 @@ export default function SendingSMS() {
         dispatch(logout());
         router.push("/login");
       }
-      if (result.status === 200) {
+
+      const response = result.data;
+      if (response.success) {
         setSender("");
         setPhoneList("");
         setSmsContent("");
         showMessage("已发送成功！");
+      } else {
+        showMessage(response?.message);
       }
       // showMessage(result.data.message);
     } catch (error) {
