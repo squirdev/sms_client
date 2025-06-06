@@ -11,19 +11,13 @@ export const validationSignIn = (username, password) => {
     };
 };
 
-export function detectLanguage(text) {
-  if (/[\u4e00-\u9fff]/.test(text)) {
-    return "CH";
-  } else if (/[a-zA-Z]/.test(text)) {
-    // Check for Spanish-specific characters
-    if (/[ñáéíóúü¿¡]/i.test(text)) {
-      return "SP";
-    } else {
-      return "EN";
-    }
-  } else {
-    return "Unknown";
-  }
+export function detectLanguages(inputStr) {
+  const hasChinese = /[\u4E00-\u9FFF]/.test(inputStr);
+  const hasSpanish = /[áéíóúñü¡¿ÁÉÍÓÚÑÜ]/.test(inputStr);
+  const hasEnglish = /[A-Za-z]/.test(inputStr);
+  const hasArabic = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/.test(inputStr);
+
+  return { hasChinese, hasSpanish, hasEnglish, hasArabic };
 }
 
 export const validationSendSMS = (phoneList, smsContent, sender) => {
@@ -33,8 +27,12 @@ export const validationSendSMS = (phoneList, smsContent, sender) => {
       message: "请输入所有信息。",
     };
   }
-  const isUnicode = detectLanguage(smsContent) == "CH";
-  const limit = isUnicode ? 70 : 140;
+
+  const lanDetectResult = detectLanguages(smsContent);
+
+  const isUniCode = lanDetectResult.hasChinese || lanDetectResult.hasArabic;
+
+  const limit = isUniCode ? 70 : 140;
   if (smsContent.length > limit) {
     return {
       result: false,
